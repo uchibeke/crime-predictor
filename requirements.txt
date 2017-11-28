@@ -11,7 +11,10 @@ future==0.15.2
 gpsimage==0.0.2
 jsonschema==2.5.1
 Pillow==4.3.0
-requests==2.18.4
+requests
 geopy
 tweepy
 python-firebase
+pyOpenSSL==16.0.0
+ndg-httpsclient==0.4.1
+pyasn1==0.1.9
