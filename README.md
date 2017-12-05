@@ -6,37 +6,22 @@ database. This will be useful for research and predicting the behavior of people
 
 To use this tool, you need twitter api credentials.
 - Create a `config.json` file in the current directory in the format shown below and 
-add your twitter credentials.
+add your twitter credentials. File si 
 ```
 {
-  "Canada" : {
-    "c_key": "fiiririri",
-    "c_sec": "riririir",
-    "a_token": "1733367122-iririr",
-    "a_sec": "rururu",
-    "firebase_url": "https://<dbNmae>.firebaseio.com/"
-  },
-  "Toronto" : {
-    "c_key": "jfkfkf",
-    "c_sec": "fffkkf",
-    "a_token": "1733367122-ffkfkff",
-    "a_sec": "foofofo",
-    "firebase_url": "https://<dbNmae>.firebaseio.com/"
-  },
-  "Saskatoon" : {
-    "c_key": "ooororo",
-    "c_sec": "kfkfkriri",
-    "a_token": "1733367122-lffkfkfk",
-    "a_sec": "ffkfkfk",
-    "firebase_url": "https://<dbNmae>.firebaseio.com/"
-  }
+  "c_key": "fkdkdkdkd",
+  "c_sec": "dkdkkdkdkd",
+  "a_token": "1111111111-ldkdkdkdkdk",
+  "a_sec": "kdkdkdkd",
+  "firebase_url": "https://<firebase_url>.firebaseio.com/"
 }
+
 ```
-- Create a firebase realtime database and add the database url above
-- 
+- Create a firebase realtime database and add the firebase database url above
+- Install dependencies in requirements.txt
+- Run code and watch the log when tweet is saved to database
 
 The `firebase_url` is the url to your firebase realtime database to store the data in.
-The city name like `Toronto` should be the key of each json object.
 
 ### Prerequisites
 

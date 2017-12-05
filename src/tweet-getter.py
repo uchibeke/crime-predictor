@@ -20,12 +20,11 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 places = api.geo_search(query=city, granularity=granularity)
 place_id = places[0].id
 minLen = 70  # Only include tweets with text length greater than minLen
-interval = 0  # Pull tweets every 5 seconds
+pull_interval = 0.5 # Pull tweets every 5 seconds
 
 firebase = firebase.FirebaseApplication(configs['firebase_url'], None)
 
 time_counter = 0
-pull_interval = 0.5
 log_duration = pull_interval * 10
 
 
@@ -76,7 +75,7 @@ for tweet in tweepy.Cursor(api.search,
         save_to_cloud(made_json, time_path)
         sleep(pull_interval)  # Time in seconds.
         time_counter += pull_interval
-    if time_counter == log_duration:
+    if time_counter >= log_duration:
         print("Success: " + str(datetime.now()))
         time_counter = 0
 
