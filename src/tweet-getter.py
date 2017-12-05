@@ -7,7 +7,7 @@ from datetime import timezone, datetime
 with open('.configs.json') as json_data_file:
     configs = json.load(json_data_file)
 
-city = "Toronto"
+city = "Calgary"
 gran = "city"
 
 auth = tweepy.OAuthHandler(configs[city]['c_key'], configs[city]['c_sec'])
@@ -17,10 +17,10 @@ auth.set_access_token(configs[city]['a_token'], configs[city]['a_sec'])
 api = tweepy.API(auth, wait_on_rate_limit=True)
 places = api.geo_search(query=city, granularity=gran)
 place_id = places[0].id
-minLen = 70 # Only include tweets with text length greater than minLen
-interval = 0.5 # Pull tweets every 5 seconds
+minLen = 70  # Only include tweets with text length greater than minLen
+interval = 0.5  # Pull tweets every 5 seconds
 
-firebase = firebase.FirebaseApplication(configs[city]['db_url'], None)
+firebase = firebase.FirebaseApplication(configs[city]['firebase_url'], None)
 
 time_counter = 0
 pull_interval = 0.5
@@ -31,6 +31,9 @@ def save_to_cloud(t,time_path):
     firebase.post('/tweets/' + time_path, t)
 
 
+# This is contains the information to get from twitter
+# For more information about what information you can get, see
+# https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets.html
 def make_json(tweet):
     item = []
     if len(tweet.text) >= minLen:
@@ -50,6 +53,7 @@ def make_json(tweet):
     return item
 
 
+# This is a continuous stream of new tweets in a given location
 for tweet in tweepy.Cursor(api.search,
                            q="place:%s" % place_id,
                            count=100,
