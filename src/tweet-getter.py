@@ -7,8 +7,9 @@ from datetime import timezone, datetime
 with open('.configs.json') as json_data_file:
     configs = json.load(json_data_file)
 
-# MODIFY
-city = "Saskatoon"
+
+# MODIFY THIS
+city = "Calgary"
 granularity = "city"  # Can be country if you want to pull all the data from a country
 
 auth = tweepy.OAuthHandler(configs['c_key'], configs['c_sec'])
@@ -19,7 +20,7 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 places = api.geo_search(query=city, granularity=granularity)
 place_id = places[0].id
 minLen = 70  # Only include tweets with text length greater than minLen
-interval = 0.5  # Pull tweets every 5 seconds
+interval = 0  # Pull tweets every 5 seconds
 
 firebase = firebase.FirebaseApplication(configs['firebase_url'], None)
 
@@ -30,9 +31,9 @@ log_duration = pull_interval * 10
 
 def save_to_cloud(data_to_save, time_path):
     if configs['firebase_url'].endswith(('/')):
-        firebase.post('/' + city + time_path, data_to_save)
+        firebase.post('tweets/' + city + time_path, data_to_save)
     else:
-        firebase.post('' + city + time_path, data_to_save)
+        firebase.post('/tweets/' + city + time_path, data_to_save)
 
 
 # This is contains the information to get from twitter
